@@ -1,4 +1,4 @@
-from settings import *
+from .settings import *
 
 DEBUG = os.environ.get('DEBUG', False)
 
