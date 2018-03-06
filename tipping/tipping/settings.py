@@ -10,6 +10,8 @@ SECRET_KEY = '@d$#n63c=+ew+6)eqay5v920^dp2n-ac-4jk0c4p99xp1@@^yq'
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
 
+SEND_REMINDERS = False
+
 ALLOWED_HOSTS = []
 
 LOGGING = {
