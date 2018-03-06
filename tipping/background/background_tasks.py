@@ -177,16 +177,17 @@ def kickoff_checker():
         kickoff_checker()
 
 def send_reminders():
-    cur_round = Round.objects.get(round=get_current_round())
-    if cur_round.reminders_sent:
-        return
-    game = Game.objects.filter(round=cur_round.round).earliest('start_time')
-    if (game.start_time - timezone.now()).days == 0:
-        if 9 < timezone.localtime(timezone.now()).hour < 22:
-            for phone in Phone.objects.all():
-                send_reminder(phone.number, game)
-            cur_round.reminders_sent = True
-            cur_round.save()
+    if settings.SEND_REMINDERS:
+        cur_round = Round.objects.get(round=get_current_round())
+        if cur_round.reminders_sent:
+            return
+        game = Game.objects.filter(round=cur_round.round).earliest('start_time')
+        if (game.start_time - timezone.now()).days == 0:
+            if 9 < timezone.localtime(timezone.now()).hour < 22:
+                for phone in Phone.objects.all():
+                    send_reminder(phone.number, game)
+                cur_round.reminders_sent = True
+                cur_round.save()
         
 def send_reminder(phone_number, game):
     client = boto3.client('sns',
