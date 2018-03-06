@@ -37,7 +37,7 @@ def initial_comp_setup():
 
         if round==1:
             # Setup teams if they don't already exist
-            team_ids = Team.objects.values_list('fox_id', flat=True)
+            team_ids = list(Team.objects.values_list('fox_id', flat=True))
 
             for game in json.loads(r.text):
                 team = {}
